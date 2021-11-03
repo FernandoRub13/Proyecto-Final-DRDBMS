@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" >
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+
+    <title>Sistema Médico</title>
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link th:href="@{/bootstrap/css/jumbotron.css}" rel="stylesheet">
+    <link th:href="@{/bootstrap/css/sticky-footer-navbar.css}" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <header th:insert="fragments/menu :: menu-principal" ></header>
+    <h1>Crear hospital</h1>
+    
+    <main role="main">     
+      <hr>
+      <div class="container"> 
+
+        <div class="card">
+          <h4 class="card-header"><strong>Datos del hospital</strong></h4>              
+          <div class="card-body">
+            <form th:action="@{/hospitales/save}" method="post" th:object="${hospital}" >    
+              <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger" role="alert" >
+                Por favor corrija los errores:
+                <ul>
+                  <li th:each=" err: ${#fields.errors('*')}" th:text="${err}" ></li>
+                </ul>
+              </div>              
+              <div class="row">
+                <div class="col-md-6"> 
+                  <div class="form-group">
+                    <input type="hidden" name="id" th:field="*{id}" />
+                    <label for="nombre">Nombre</label>
+                    <input th:field="*{nombre}" type="text" class="form-control" id="nombre" name="nombre" placeholder="Escriba el nombre del hospital" required="required">
+                  </div>
+                </div>                
+              </div> 
+              <div class="row">
+                <div class="col-md-6"> 
+                  <div class="form-group">
+                    <label for="tipo">Tipo</label>
+                    <input th:field="*{tipo}" type="text" class="form-control" id="tipo" name="tipo" placeholder="Escriba el tipo del hospital" required="required">
+                  </div>
+                </div>                
+              </div> 
+              
+              <hr>
+              <button type="submit" title="Guardar el registro." class="btn btn-primary">Guardar</button>  
+            </form>
+          </div>
+        </div>
+      </div> 
+
+    </main> 
+
+    
+    <footer th:insert="fragments/footer::pie-pagina" class="footer"></footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="@{bootstrap/js/bootstrap.min.js}"></script>     
+  </body>
+</html>
