@@ -18,16 +18,16 @@
   <body>
 
     <header th:insert="fragments/menu :: menu-principal" ></header>
-    <h1>Agregar hospital</h1>
+    <h1>Agregar Médico</h1>
     
     <main role="main">     
       <hr>
       <div class="container"> 
 
         <div class="card">
-          <h4 class="card-header"><strong>Datos del hospital</strong></h4>              
+          <h4 class="card-header"><strong>Datos del médico</strong></h4>              
           <div class="card-body">
-            <form th:action="@{/hospitales/save}" method="post" th:object="${hospital}" >    
+            <form th:action="@{/medicos/save}" method="post" th:object="${medico}" >    
               <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger" role="alert" >
                 Por favor corrija los errores:
                 <ul>
@@ -39,17 +39,40 @@
                   <div class="form-group">
                     <input type="hidden" name="id" th:field="*{id}" />
                     <label for="nombre">Nombre</label>
-                    <input th:field="*{nombre}" type="text" class="form-control" id="nombre" name="nombre" placeholder="Escriba el nombre del hospital" required="required">
+                    <input th:field="*{persona.nombre}" type="text" class="form-control" id="nombre" name="nombre" placeholder="Escriba el nombre del medico" required="required">
+                  </div>
+                </div>                
+                <div class="col-md-6"> 
+                  <div class="form-group">
+                    <label for="apellidos">Apellidos</label>
+                    <input th:field="*{persona.apellidos}" type="text" class="form-control" id="apellidos" name="apellidos" placeholder="Escriba los apellidos del medico" required="required">
                   </div>
                 </div>                
               </div> 
               <div class="row">
                 <div class="col-md-6"> 
                   <div class="form-group">
-                    <label for="tipo">Tipo</label>
-                    <input th:field="*{tipo}" type="text" class="form-control" id="tipo" name="tipo" placeholder="Escriba el tipo del hospital" required="required">
+                    <input type="hidden" name="id" th:field="*{id}" />
+                    <label for="telefono">Telefono</label>
+                    <input th:field="*{persona.telefono}" type="text" class="form-control" id="telefono" name="telefono" placeholder="Escriba el telefono del medico" required="required">
                   </div>
                 </div>                
+                <div class="col-md-6"> 
+                  <div class="form-group">
+                    <label for="cedula">Cedula</label>
+                    <input th:field="*{cedula}" type="text" class="form-control" id="cedula" name="cedula" placeholder="Escriba la cédula del medico" required="required">
+                  </div>
+                </div>                
+              </div> 
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="hospital">Hospital</label>
+                     <select class="form-control" th:field="*{hospital.id}" name="hospital" >
+                       <option th:each=" hospital: ${hospitales}" th:value="${hospital.id}" th:text="${hospital.nombre}" ></option>
+                     </select> 
+                   </div>
+                </div>
               </div> 
               
               <hr>

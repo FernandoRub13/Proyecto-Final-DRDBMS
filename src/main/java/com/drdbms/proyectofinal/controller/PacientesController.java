@@ -1,9 +1,8 @@
 package com.drdbms.proyectofinal.controller;
 
-import java.util.List;
-
-import com.drdbms.proyectofinal.model.Hospital;
-import com.drdbms.proyectofinal.services.IHospitalesService;
+import com.drdbms.proyectofinal.model.Paciente;
+import com.drdbms.proyectofinal.services.IPacientesService;
+import com.drdbms.proyectofinal.services.IPersonasService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,34 +19,37 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping("/hospitales")
-public class HospitalController {
-  
+@RequestMapping("/pacientes")
+public class PacientesController {
+    
   @Autowired
-  private IHospitalesService hospitalesService;
+  IPersonasService personasService;
+
+  @Autowired
+  IPacientesService pacientesService;
 
   @GetMapping("/index")
   public String index(Model model, Pageable page) {
-    Page<Hospital> hospitales = hospitalesService.buscarPorPagina(page);
-    model.addAttribute("hospitales", hospitales);
-    return "hospitales/index";
+    Page<Paciente> pacientes = pacientesService.buscarPorPagina(page);
+    model.addAttribute("pacientes", pacientes);
+    return "pacientes/index";
   }
   
   @GetMapping("/create")
-  public String create(Hospital hospital) {
-    return "hospitales/create";
+  public String create(Model model, Paciente paciente) {
+    return "pacientes/create";
   }
   
   @GetMapping("/edit/{id}")
   public String edit(@PathVariable(value = "id") Integer id, Model model) {
-    Hospital hospital = hospitalesService.buscarPorId(id);
-    model.addAttribute("hospital", hospital);
-    return "hospitales/edit";
+    Paciente paciente = pacientesService.buscarPorId(id);
+    model.addAttribute("paciente", paciente);
+    return "pacientes/edit";
   }
   
   @PostMapping("/save")
   public String save(
-    Hospital hospital,
+    Paciente paciente,
     BindingResult result,
     RedirectAttributes attributes
     ) {
@@ -55,19 +57,24 @@ public class HospitalController {
       for (ObjectError error : result.getAllErrors()) {
         System.out.println(error.getDefaultMessage());
       }
-      return "hospitales/create";
+      return "pacientes/create";
     }
   
-    hospitalesService.guardar(hospital);
-    attributes.addFlashAttribute("msg", "Hospital guardado con éxito");
-    return "redirect:/hospitales/index";
+    personasService.guardar(paciente.getPersona());
+
+    pacientesService.guardar(paciente);
+    attributes.addFlashAttribute("msg", "Paciente guardado con éxito");
+    return "redirect:/pacientes/index";
   }
 
   @PostMapping("/delete")
   public String delete(@RequestParam("id") Integer id, RedirectAttributes attributes) {
-    hospitalesService.eliminar(id);
-    attributes.addFlashAttribute("msg", "Hospital eliminado con éxito");
-    return "redirect:/hospitales/index";
+    Paciente paciente = pacientesService.buscarPorId(id);
+    int idPersona = paciente.getPersona().getId();
+    pacientesService.eliminar(id);
+    personasService.eliminar(idPersona);
+    
+    attributes.addFlashAttribute("msg", "Paciente eliminado con éxito");
+    return "redirect:/pacientes/index";
   }
-
 }
