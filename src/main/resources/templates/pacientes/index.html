@@ -54,8 +54,7 @@
                   <td th:text="${paciente.edad}" ></td>
                   <td th:text="${paciente.peso}" ></td>
                   <td th:text="${paciente.talla}" ></td>
-                  <td></td>
-                  <!-- <td th:text="${}" ></td> -->
+                  <td th:text="${paciente.num_estudios}" ></td>
                   <td class="d-flex"  >
                     <a th:href="@{${'/pacientes/edit/'+paciente.id}}" class="btn btn-success btn-sm" role="button" title="Editar"><i class="fas fa-pencil-alt" aria-hidden="true"></i></a>
                     <form th:action="@{/pacientes/delete}" method="post"  >

@@ -18,16 +18,16 @@
   <body>
 
     <header th:insert="fragments/menu :: menu-principal" ></header>
-    <h1>Agregar Médico</h1>
+    <h1>Agregar Paciente</h1>
     
     <main role="main">     
       <hr>
       <div class="container"> 
 
         <div class="card">
-          <h4 class="card-header"><strong>Datos del médico</strong></h4>              
+          <h4 class="card-header"><strong>Datos del paciente</strong></h4>              
           <div class="card-body">
-            <form th:action="@{/medicos/save}" method="post" th:object="${medico}" >    
+            <form th:action="@{/pacientes/save}" method="post" th:object="${paciente}" >    
               <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger" role="alert" >
                 Por favor corrija los errores:
                 <ul>
@@ -40,40 +40,50 @@
                     <input type="hidden" name="id" th:field="*{id}" />
                     <input type="hidden" name="id" th:field="*{persona.id}" />
                     <label for="nombre">Nombre</label>
-                    <input th:field="*{persona.nombre}" type="text" class="form-control" id="nombre" name="nombre" placeholder="Escriba el nombre del medico" required="required">
+                    <input th:field="*{persona.nombre}" type="text" class="form-control" id="nombre" name="nombre" placeholder="Escriba el nombre del paciente" required="required">
                   </div>
                 </div>                
                 <div class="col-md-6"> 
                   <div class="form-group">
                     <label for="apellidos">Apellidos</label>
-                    <input th:field="*{persona.apellidos}" type="text" class="form-control" id="apellidos" name="apellidos" placeholder="Escriba los apellidos del medico" required="required">
+                    <input th:field="*{persona.apellidos}" type="text" class="form-control" id="apellidos" name="apellidos" placeholder="Escriba los apellidos del paciente" required="required">
                   </div>
                 </div>                
               </div> 
               <div class="row">
                 <div class="col-md-6"> 
                   <div class="form-group">
-                    <input type="hidden" name="id" th:field="*{id}" />
                     <label for="telefono">Telefono</label>
-                    <input th:field="*{persona.telefono}" type="text" class="form-control" id="telefono" name="telefono" placeholder="Escriba el telefono del medico" required="required">
+                    <input th:field="*{persona.telefono}" type="text" class="form-control" id="telefono" name="telefono" placeholder="Escriba el telefono del paciente" required="required">
                   </div>
                 </div>                
                 <div class="col-md-6"> 
                   <div class="form-group">
-                    <label for="cedula">Cedula</label>
-                    <input th:field="*{cedula}" type="text" class="form-control" id="cedula" name="cedula" placeholder="Escriba la cédula del medico" required="required">
+                    <label for="padecimiento">Padecimiento</label>
+                    <input th:field="*{padecimiento}" type="text" class="form-control" id="padecimiento" name="padecimiento" placeholder="Escriba el padecimiento del paciente" required="required">
                   </div>
                 </div>                
               </div> 
               <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-4"> 
                   <div class="form-group">
-                    <label for="hospital">Hospital</label>
-                     <select class="form-control" th:field="*{hospital.id}" name="hospital" >
-                       <option th:each=" hospital: ${hospitales}" th:value="${hospital.id}" th:text="${hospital.nombre}" ></option>
-                     </select> 
-                   </div>
-                </div>
+                    <label for="edad">Edad</label>
+                    <input th:field="*{edad}" type="text" class="form-control" id="edad" name="edad" placeholder="Escriba la edad del paciente" required="required">
+                  </div>
+                </div>                
+                <div class="col-md-4"> 
+                  <div class="form-group">
+                    <label for="peso">Peso</label>
+                    <input th:field="*{peso}" type="text" class="form-control" id="peso" name="peso" placeholder="Escriba el peso del paciente" required="required">
+                  </div>
+                </div>                
+                <div class="col-md-4"> 
+                  <div class="form-group">
+                    <label for="talla">Talla</label>
+                    <input th:field="*{talla}" type="text" class="form-control" id="talla" name="talla" placeholder="Escriba la talla del paciente" required="required">
+                    <input th:value="${0}"  type="hidden" class="form-control" id="num_estudios" name="num_estudios" required="required">
+                  </div>
+                </div>                  
               </div> 
               
               <hr>

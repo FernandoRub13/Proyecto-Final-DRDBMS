@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" >
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+
+    <title>Sistema Médico</title>
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link th:href="@{/bootstrap/css/jumbotron.css}" rel="stylesheet">
+    <link th:href="@{/bootstrap/css/sticky-footer-navbar.css}" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <header th:insert="fragments/menu :: menu-principal" ></header>
+    <h1>Agregar estudio</h1>
+    
+    <main role="main">     
+      <hr>
+      <div class="container"> 
+
+        <div class="card">
+          <h4 class="card-header"><strong>Datos del estudio</strong></h4>              
+          <div class="card-body">
+            <form th:action="@{/estudios/save}" method="post" th:object="${estudios_laboratorio}" >    
+              <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger" role="alert" >
+                Por favor corrija los errores:
+                <ul>
+                  <li th:each=" err: ${#fields.errors('*')}" th:text="${err}" ></li>
+                </ul>
+              </div>              
+              <div class="row">
+                <div class="col-md-6"> 
+                  <div class="form-group">
+                    <input type="hidden" name="id" th:field="*{id}" />
+                    <label for="tipo_estudio">Tipo de estudio</label>
+                    <input th:field="*{tipo_estudio}" type="text" class="form-control" id="tipo_estudio" name="tipo_estudio" placeholder="Escriba el tipo de estudio del estudio" required="required">
+                  </div>
+                </div>                
+              </div> 
+              <div class="row">
+                <div class="col-md-6"> 
+                  <div class="form-group">
+                    <label for="fecha_estudio">Fecha de realización</label>
+                    <input th:field="*{fecha_estudio}" type="date" class="form-control" id="fecha_estudio" name="fecha_estudio" placeholder="Escriba la fecha en que se realizó el estudio" required="required">
+                  </div>
+                </div> 
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="paciente">Paciente</label>
+                       <select class="form-control" th:field="*{paciente.id}" name="paciente" >
+                         <!-- <option th:each=" paciente: ${pacientes}" th:value="${paciente.id}" th:text="@{${paciente.id} ${paciente.nombre}}" ></option> -->
+                         <option th:each=" paciente: ${pacientes}" th:value="${paciente.id}"  >[[${paciente.id}]].- [[${paciente.persona.nombre}]]</option>
+                       </select> 
+                     </div>
+                  </div>
+                </div>               
+              </div> 
+              
+              <hr>
+              <button type="submit" title="Guardar el registro." class="btn btn-primary">Guardar</button>  
+            </form>
+          </div>
+        </div>
+      </div> 
+
+    </main> 
+
+    
+    <footer th:insert="fragments/footer::pie-pagina" class="footer"></footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="@{bootstrap/js/bootstrap.min.js}"></script>     
+  </body>
+</html>

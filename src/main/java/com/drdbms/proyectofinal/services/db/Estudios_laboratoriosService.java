@@ -4,11 +4,13 @@ import java.util.List;
 import java.util.Optional;
 
 import com.drdbms.proyectofinal.model.Estudios_laboratorio;
+import com.drdbms.proyectofinal.model.Paciente;
 import com.drdbms.proyectofinal.repository.Estudios_laboratorioRepository;
 import com.drdbms.proyectofinal.services.IEstudios_laboratoriosService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
+import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -50,5 +52,11 @@ public class Estudios_laboratoriosService implements IEstudios_laboratoriosServi
   public Page<Estudios_laboratorio> buscarPorPagina(Pageable page) {
     return estudios_laboratoriosRepository.findAll(page);
   }
+
+  @Override
+  public Integer contarEstudiosLaboratio(Integer id) {
+    return estudios_laboratoriosRepository.countEstudiosLaboratorio(id);
+  }
+
 
 }
