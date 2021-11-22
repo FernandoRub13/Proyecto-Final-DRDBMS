@@ -65,8 +65,17 @@ public class HospitalController {
 
   @PostMapping("/delete")
   public String delete(@RequestParam("id") Integer id, RedirectAttributes attributes) {
-    hospitalesService.eliminar(id);
-    attributes.addFlashAttribute("msg", "Hospital eliminado con éxito");
+    
+
+    try {
+      hospitalesService.eliminar(id);
+      attributes.addFlashAttribute("msg", "Hospital eliminado con éxito");
+
+    } catch (Exception e) {
+      String mensaje = "El hospital no se puede eliminar porque tiene médicos asociados, eliminelos primero por favor";
+      attributes.addFlashAttribute("err", mensaje);
+    }
+
     return "redirect:/hospitales/index";
   }
 

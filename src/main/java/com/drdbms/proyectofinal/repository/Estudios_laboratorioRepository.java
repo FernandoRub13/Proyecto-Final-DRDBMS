@@ -10,7 +10,10 @@ public interface Estudios_laboratorioRepository extends JpaRepository<Estudios_l
 
   @Query(value = "SELECT count(*)   FROM estudios_laboratorio WHERE paciente_id=:paciente", nativeQuery = true)
   Integer countEstudiosLaboratorio(@Param("paciente") long pacienteId);
-  
+
+  @Query(value = "DELETE FROM estudios_laboratorio WHERE paciente_id=:paciente", nativeQuery = true)
+  void deleteByPacienteId(@Param("paciente") Integer pacienteId);
+
 
 
 }

@@ -1,6 +1,7 @@
 package com.drdbms.proyectofinal.controller;
 
 import com.drdbms.proyectofinal.model.Paciente;
+import com.drdbms.proyectofinal.services.IEstudios_laboratoriosService;
 import com.drdbms.proyectofinal.services.IPacientesService;
 import com.drdbms.proyectofinal.services.IPersonasService;
 
@@ -27,6 +28,9 @@ public class PacientesController {
 
   @Autowired
   IPacientesService pacientesService;
+
+  @Autowired
+  IEstudios_laboratoriosService estudios_laboratoriosService;
 
   @GetMapping("/index")
   public String index(Model model, Pageable page) {
@@ -71,10 +75,17 @@ public class PacientesController {
   public String delete(@RequestParam("id") Integer id, RedirectAttributes attributes) {
     Paciente paciente = pacientesService.buscarPorId(id);
     int idPersona = paciente.getPersona().getId();
-    pacientesService.eliminar(id);
-    personasService.eliminar(idPersona);
+    // String mensaje = "Paciente eliminado con éxito";
+    try {
+      pacientesService.eliminar(id);
+      personasService.eliminar(idPersona);
+      attributes.addFlashAttribute("msg", "Paciente eliminado con éxito");
+
+    } catch (Exception e) {
+      String mensaje = "El paciente no se puede eliminar porque tiene estudios asociados, eliminelos primero por favor";
+      attributes.addFlashAttribute("err", mensaje);
+    }
     
-    attributes.addFlashAttribute("msg", "Paciente eliminado con éxito");
     return "redirect:/pacientes/index";
   }
 }

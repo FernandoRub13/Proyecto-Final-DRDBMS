@@ -58,5 +58,12 @@ public class Estudios_laboratoriosService implements IEstudios_laboratoriosServi
     return estudios_laboratoriosRepository.countEstudiosLaboratorio(id);
   }
 
+  @Override
+  public void eliminarByPacienteId(Integer id) {
+    estudios_laboratoriosRepository.deleteByPacienteId(id);
+    
+  }
+  
+
 
 }

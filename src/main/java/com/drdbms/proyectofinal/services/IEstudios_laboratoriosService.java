@@ -16,4 +16,5 @@ public interface IEstudios_laboratoriosService {
   void eliminar(Integer id);
   Page<Estudios_laboratorio> buscarPorPagina(Pageable page);
   Integer contarEstudiosLaboratio(Integer id);
+  void eliminarByPacienteId(Integer id);
 }

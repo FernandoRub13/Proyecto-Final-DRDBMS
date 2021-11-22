@@ -27,9 +27,10 @@
         <div class="card">
           <h4 class="card-header"><strong>Listado de Pacientes</strong></h4>              
           <div class="card-body">
-            <a class="btn btn-primary" th:href="@{/pacientes/create}" role="button"><i class="fas fa-file" aria-hidden="true"></i> Nuevo</a>            
+            <a class="btn btn-success" th:href="@{/pacientes/create}" role="button"><i class="fas fa-file" aria-hidden="true"></i> Nuevo</a>            
             <hr>
             <div th:if="${msg != null}" class='alert alert-success' th:text="${msg}" role='alert'></div>
+            <div th:if="${err != null}" class='alert alert-danger' th:text="${err}" role='alert'></div>
             <table class="table table-hover">
               <thead class="thead-light">
                 <tr>
@@ -56,10 +57,10 @@
                   <td th:text="${paciente.talla}" ></td>
                   <td th:text="${paciente.num_estudios}" ></td>
                   <td class="d-flex"  >
-                    <a th:href="@{${'/pacientes/edit/'+paciente.id}}" class="btn btn-success btn-sm" role="button" title="Editar"><i class="fas fa-pencil-alt" aria-hidden="true"></i></a>
+                    <a th:href="@{${'/pacientes/edit/'+paciente.id}}" class="btn btn-primary btn-sm" role="button" title="Editar"><i class="fas fa-pencil-alt" aria-hidden="true"></i></a>
                     <form th:action="@{/pacientes/delete}" method="post"  >
                       <input type="hidden" name="id" th:value="${paciente.id}" >
-                      <button onclick="return confirm('¿Estas seguro?')" class="btn btn-success btn-sm" role="button" title="Eliminar el registro."><i class="fas fa-trash" aria-hidden="true"></i></button>
+                      <button onclick="return confirm('¿Estas seguro?')" class="btn btn-danger btn-sm" role="button" title="Eliminar el registro."><i class="fas fa-trash" aria-hidden="true"></i></button>
                     </form>
                   </td>
                 </tr>

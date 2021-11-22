@@ -50,17 +50,19 @@
                     <input th:field="*{fecha_estudio}" type="date" class="form-control" id="fecha_estudio" name="fecha_estudio" placeholder="Escriba la fecha en que se realizó el estudio" required="required">
                   </div>
                 </div> 
-                <div class="row">
-                  <div class="col-md-12">
-                    <div class="form-group">
-                      <label for="paciente">Paciente</label>
-                       <select class="form-control" th:field="*{paciente.id}" name="paciente" disabled  >
-                         <option th:each=" paciente: ${pacientes}" th:value="${paciente.id}"  >[[${paciente.id}]].- [[${paciente.persona.nombre}]]</option>
-                       </select> 
-                     </div>
-                  </div>
-                </div>               
               </div> 
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="paciente">Paciente: </label>
+                     <!-- <select class="form-control "  th:field="*{paciente.id}" name="paciente"   >
+                       <option th:each=" paciente: ${pacientes}" th:value="${paciente.id}"  >[[${paciente.id}]].- [[${paciente.persona.nombre}]]</option>
+                     </select>  -->
+                     <div class="form-control d-block" >[[${paciente.id}]].- [[${paciente.persona.nombre}]] [[${paciente.persona.apellidos}]] </div>
+                     <input class="form-control " type="hidden" name="paciente" th:field="*{paciente.id}" th:value="${paciente.id}" >
+                   </div>
+                </div>
+              </div>               
               
               <hr>
               <button type="submit" title="Guardar el registro." class="btn btn-primary">Guardar</button>  

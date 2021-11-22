@@ -51,6 +51,7 @@ public class Estudios_laboratorioController {
     model.addAttribute("pacientes", pacientes );
     Estudios_laboratorio estudios_laboratorio = estudios_laboratoriosService.buscarPorId(id);
     model.addAttribute("estudio", estudios_laboratorio);
+    model.addAttribute("paciente", estudios_laboratorio.getPaciente());
     return "estudios/edit";
   }
   
@@ -73,9 +74,13 @@ public class Estudios_laboratorioController {
 
   @PostMapping("/delete")
   public String delete(@RequestParam("id") Integer id, RedirectAttributes attributes) {
-    estudios_laboratoriosService.eliminar(id);
+    try {
+      estudios_laboratoriosService.eliminar(id);
+      attributes.addFlashAttribute("msg", "Estudio de laboratorio eliminado con éxito");
+    } catch (Exception e) {
+      attributes.addFlashAttribute("err", "Estudio de laboratorio no pudo ser eliminado");
+    } 
     
-    attributes.addFlashAttribute("msg", "Estudio de laboratorio  eliminado con éxito");
     return "redirect:/estudios/index";
   }
 }

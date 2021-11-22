@@ -84,6 +84,16 @@ public class MedicosController {
     int idPersona = medico.getPersona().getId();
     medicosService.eliminar(id);
     personasService.eliminar(idPersona);
+
+    try {
+      medicosService.eliminar(id);
+      personasService.eliminar(idPersona);
+      attributes.addFlashAttribute("msg", "Médico eliminado con éxito");
+
+    } catch (Exception e) {
+      String mensaje = "El médico no se puede eliminar porque tiene hopsitales asociados, eliminelos primero por favor";
+      attributes.addFlashAttribute("err", mensaje);
+    }
     
     attributes.addFlashAttribute("msg", "Medico eliminado con éxito");
     return "redirect:/medicos/index";
