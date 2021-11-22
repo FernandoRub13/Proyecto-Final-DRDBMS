@@ -81,7 +81,7 @@
                   <div class="form-group">
                     <label for="talla">Talla</label>
                     <input th:field="*{talla}" type="text" class="form-control" id="talla" name="talla" placeholder="Escriba la talla del paciente" required="required">
-                    <input th:value="${0}"  type="hidden" class="form-control" id="num_estudios" name="num_estudios" required="required">
+                    <input th:field="*{num_estudios}" th:value="${num_estudios}" type="hidden" class="form-control" id="num_estudios" name="num_estudios"  required="required">
                   </div>
                 </div>                  
               </div> 
