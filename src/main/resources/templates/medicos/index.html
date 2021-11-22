@@ -64,14 +64,14 @@
             <nav th:if="${medicos.totalPages > 0}" aria-label="Page navigation example" >
               <ul class="pagination justify-content-center">
                 <li class="page-item" th:classappend="${medicos.number == 0 ? 'disabled' : ''}">
-                  <a th:href="@{/medicos/indexPaginate(page=${medicos.number - 1})}" class="page-link">Anterior</a>
+                  <a th:href="@{/medicos/index(page=${medicos.number - 1})}" class="page-link">Anterior</a>
                 </li>
                       
                 <li class="page-item" th:classappend="${i eq medicos.number + 1} ? 'active'" th:each="i : ${#numbers.sequence( 1, medicos.totalPages, 1)}">
-                  <a class="page-link" th:href="@{/medicos/indexPaginate?page={tmpPag} (tmpPag=${i-1}) }" th:text="${i}" th:title="${'Page '+ i}" data-toggle="tooltip"></a>
+                  <a class="page-link" th:href="@{/medicos/index?page={tmpPag} (tmpPag=${i-1}) }" th:text="${i}" th:title="${'Page '+ i}" data-toggle="tooltip"></a>
                 </li>
                 <li class="page-item" th:classappend="${medicos.number == (medicos.totalPages - 1) ? 'disabled' : ''}">
-                  <a th:href="@{/medicos/indexPaginate(page=${medicos.number + 1})}" class="page-link">Siguiente</a>
+                  <a th:href="@{/medicos/index(page=${medicos.number + 1})}" class="page-link">Siguiente</a>
                 </li>
               </ul>
             </nav>
